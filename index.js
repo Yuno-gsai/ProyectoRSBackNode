@@ -26,7 +26,12 @@ app.use(
 app.use(logger("dev"));
 app.use(express.json());
 
-// ─── 1) Ruta dinámica para manejar las solicitudes según el controlador y método ───
+// ─── 1) Ruta GET para la raíz (esto evita el error "Cannot GET /") ──────
+app.get("/", (req, res) => {
+  res.send("¡Servidor corriendo correctamente!");
+});
+
+// ─── 2) Ruta dinámica para manejar las solicitudes según el controlador y método ───
 app.post("/", (req, res) => {
   const { controller, method } = req.body;
 
@@ -34,7 +39,6 @@ app.post("/", (req, res) => {
   if (!controller || !method) {
     return res.status(400).json({ error: "Controlador o método no especificado en el cuerpo" });
   }
-
 
   // Si pasa las validaciones, importar y ejecutar el controlador y método
   import(`./controllers/${controller}Controller.js`)
@@ -53,7 +57,7 @@ app.post("/", (req, res) => {
     });
 });
 
-// ─── 2) Configurar Socket.IO ───────────────────────────────────────────
+// ─── 3) Configurar Socket.IO ───────────────────────────────────────────
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
@@ -80,7 +84,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// ─── 3) Iniciar el servidor ─────────────────────────────────────────────
+// ─── 4) Iniciar el servidor ─────────────────────────────────────────────
 server.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
