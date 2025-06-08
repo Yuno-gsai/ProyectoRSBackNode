@@ -14,8 +14,8 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // Para el desarrollo local
-      "https://chatparaproyectodedaw.azurewebsites.net" // Para el entorno en Azure
+      "https://calm-sky-07d7c2f1e.6.azurestaticapps.net/", // Para el desarrollo local
+      "https://backnode-b0fuhtf0e6hze6gp.canadacentral-01.azurewebsites.net" // Para el entorno en Azure
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -57,8 +57,8 @@ const server = createServer(app);
 const io = new Server(server, {
   cors: {
     origin: [
-      "http://localhost:5173", // Para el desarrollo local
-      "https://chatparaproyectodedaw.azurewebsites.net" // Para el entorno en Azure
+      "https://calm-sky-07d7c2f1e.6.azurestaticapps.net/", // Para el desarrollo local
+      "https://backnode-b0fuhtf0e6hze6gp.canadacentral-01.azurewebsites.net" // Para el entorno en Azure
     ],
     methods: ["GET", "POST"],
   },
